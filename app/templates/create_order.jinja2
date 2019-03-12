@@ -1,18 +1,14 @@
-{% extends "index.jinja2" %}
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
 
-{% block body %}
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Cake</label>
-  <select class="custom-select">
-      <option selected>Select kind </option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+{% block body%}
+<<div class="card">
+        <div class="card-header">
+            Create collection
+        </div>
+        <div class="card-body">
+             {% crispy form %}
+        </div>
+    </div>
+</table>
 {% endblock %}
-
