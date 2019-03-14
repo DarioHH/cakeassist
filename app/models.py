@@ -27,12 +27,13 @@ class Cake(models.Model):
     amount = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return "{} - {}".format(self.name, self.size)
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     shop = models.ForeignKey(Shop, related_name='orders', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    delivery_day = models.DateField(blank=False)
     class Meta:
         ordering = ['created_at']
 

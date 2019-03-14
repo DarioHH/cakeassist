@@ -8,14 +8,18 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Shop Item - Start Bootstrap Template</title>
+  <title>Shop Item </title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
 
-  <link href="{% static 'css/shop-item.css'"} rel="stylesheet">
+  <link href="{% static 'css/shop-item.css' %}" rel="stylesheet">
 
 </head>
 
@@ -104,7 +108,7 @@
 
   </div>
   <!-- /.container -->
-
+  <br> <br>
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
@@ -119,6 +123,11 @@
   <script src="{% static 'jquery/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'jquery/jquery.formset.js' %}">
+   <script>
+  $( function() {
+    $( ".datepicker" ).datepicker();
+  } );
+  </script>
   {% block scripts %}{% endblock%}
 </body>
 

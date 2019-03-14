@@ -20,6 +20,7 @@ class ItemForm(ModelForm):
 class OrderForm(ModelForm):
     class Meta:
         model = Order
+        fields = ['delivery_day', 'shop', 'user']
         exclude = ['created_by', ]
 
     def __init__(self, *args, **kwargs):
@@ -31,10 +32,10 @@ class OrderForm(ModelForm):
         self.helper.field_class = 'col-md-9'
         self.helper.layout = Layout(
             Div(
-                Field('subject'),
-                Field('owner'),
-                Fieldset('Add titles',
-                         Formset('titles')),
+                Field('Shop'),
+                Field('delivery_day', ),
+                Fieldset('Add item',
+                         Formset('orders')),
                 Field('note'),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
@@ -43,7 +44,7 @@ class OrderForm(ModelForm):
 
 
 
-OrderFormSet = inlineformset_factory(
+ItemFormSet = inlineformset_factory(
     Order, Item, form=ItemForm, fields=('cake', 'quantity'), extra=1, can_delete=True
     )
 
