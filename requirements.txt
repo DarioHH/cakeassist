@@ -1,2 +1,4 @@
 django
 django-crispy-form
+django-bootstrap-datepicker-plus
+django-bootstrap4

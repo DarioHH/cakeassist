@@ -31,13 +31,15 @@ class Cake(models.Model):
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now=True)
-    shop = models.ForeignKey(Shop, related_name='orders', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
-    delivery_day = models.DateField(blank=False)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    delivery_day = models.DateField(name='delivery_day')
+
     class Meta:
         ordering = ['created_at']
 
-
+    def get_absolute_url(self):
+        return reversed('order_detail')
 
 class Item(models.Model):
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE)
