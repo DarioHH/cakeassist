@@ -37,9 +37,16 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['created_at']
-
+   
+    @property
+    def items(self):
+        return Item.objects.filter(order=self.pk)
+    
+    def get_items(self):
+       return ' | '.join(['{} []'.format(item.cake, item.quantity) for item in self.items])
+    
     def get_absolute_url(self):
-        return reversed('order_detail')
+        return reversed('order_detail', args=[str(self.id)])
 
 class Item(models.Model):
     cake = models.ForeignKey(Cake, on_delete=models.CASCADE)

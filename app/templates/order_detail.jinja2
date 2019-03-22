@@ -6,13 +6,13 @@
 
         <div class="card-header">
 
-            Modify Order
+            Order
         </div>
         <div class="card-body">
         {{ order }}
         </div>
         {% for item in  items %}
-          {{ item}}
+          {{ item.cake}} {{ item.quantity}}
         {% endfor %}
     </div>
 </table>

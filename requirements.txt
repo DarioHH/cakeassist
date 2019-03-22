@@ -2,3 +2,4 @@ django
 django-crispy-form
 django-bootstrap-datepicker-plus
 django-bootstrap4
+django-bootstrap-pagination

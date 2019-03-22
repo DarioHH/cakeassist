@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap_datepicker_plus',
     'bootstrap4',
-    'app.apps.AppConfig'
+    'app.apps.AppConfig',
+    'bootstrap_pagination'
 ]
 
 MIDDLEWARE = [

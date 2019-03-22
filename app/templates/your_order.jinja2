@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body%}
+<div class="card">
+
+
+        <div class="card-header">
+
+            Orders
+        </div>
+        <div class="card-body">
+
+            {% load bootstrap_pagination %}
+            {% bootstrap_paginate page_obj range=3 %}
+
+            <h1>Order List</h1>
+
+            {% if  object_list %}
+              <ul class="list-group">
+              <table class='table-striped'>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Shop<t/h>
+                  <th>Delivery Day</th>
+                  <th>Actions<th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for order in object_list %}
+              <tr>
+                  <td> <span class="badge badge-secondary">{{ order.pk }}</span></td>
+                  <td> {{ order.shop }}</td>
+                  <td> {{ order.delivery_day }} </td>
+                  <td> <a href="{% url 'order_detail' order.pk %}" > <i class="fa fa-eye"></i></a> </td>
+              {% endfor %}
+              </tbody>
+            {% else %}
+                  <p>There are no orders.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+</table>
+{% endblock %}
+
