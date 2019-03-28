@@ -1,13 +1,16 @@
-from datetime import timezone
+from datetime import timezone, datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.handlers.exception import response_for_exception
+from django.forms import forms, Select, ChoiceField, RadioSelect, ModelChoiceField
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, render_to_response, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, CreateView
-
-from app.forms import  OrderForm, ItemFormSet
+from django.contrib.auth.decorators import user_passes_test
+from app.forms import OrderForm, ItemFormSet, OrderFilter, DateOrderForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.db import transaction
 from django.urls import reverse_lazy
@@ -15,9 +18,11 @@ from django.views.generic.edit import UpdateView
 
 from app.models import Order, Item
 
-
 def index(request):
     return render(request, "layout.html")
+
+
+
 
 @method_decorator(login_required, name='dispatch')
 class CreateOrder(CreateView):
@@ -88,5 +93,24 @@ class listYourOrders(ListView):
     def get_queryset(self):
         """Return the last five published questions."""
         return Order.objects.filter(created_by=self.request.user)
-    
+
+
+def is_baker(user):
+    return user.profile.baker
+
+
+@login_required
+@user_passes_test(is_baker)
+def order_by_shop_view(request):
+    orders = {}
+    for order in Order.objects.all():
+        if order.delivery_day_to_str in orders:
+            orders[order.delivery_day_to_str].append(order)
+        else:
+            orders[order.delivery_day_to_str] = [order]
+    today = datetime.today()
+    form = DateOrderForm(choices=((day, day) for day in orders), selected=today)
+    # form = ChoiceField(choices=list(map(tuple, zip(orders.keys(), orders.keys()))))
+
+    return render(request, 'order_by_shop.html', {'orders': orders, 'form': form})
 

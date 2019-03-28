@@ -1,0 +1,12 @@
+<table class="table border  border-secondary" id="{{order.pk}}">
+  <h4>{{order.shop}}</h4>
+{% for item in order.items %}
+  <tbody>
+    <tr>
+      <th scope="row">{{ item.cake}}</th>
+      <td> <span class="badge badge-primary">{{ item.quantity}}</span></td>
+    </tr>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>

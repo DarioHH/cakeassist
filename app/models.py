@@ -1,7 +1,26 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from timesheet.models import *
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    birth_date = models.DateField(null=True, blank=True)
+    baker = models.BooleanField(null=False, default=False)
 
+    def __unicode__(self):
+        return str(self.user)
+
+    def __str__(self):
+        return str(self.user)
+    
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
 
 # Create your models here.
@@ -37,7 +56,16 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['created_at']
-   
+    
+    def __str__(self):
+        return "{}  {}  ".format(self.delivery_day_to_str, self.shop)
+    
+    def __bool__(self):
+        return bool(self.items)
+    @property
+    def delivery_day_to_str(self):
+        return self.delivery_day.strftime("%Y-%m-%d")
+    
     @property
     def items(self):
         return Item.objects.filter(order=self.pk)

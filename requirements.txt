@@ -3,3 +3,5 @@ django-crispy-form
 django-bootstrap-datepicker-plus
 django-bootstrap4
 django-bootstrap-pagination
+django-filter
+git+git://github.com/adlibre/Adlibre-TMS.git#egg=tms-dev

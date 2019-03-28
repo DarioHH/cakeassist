@@ -9,11 +9,8 @@
             Order
         </div>
         <div class="card-body">
-        {{ order }}
+        {% include 'order_ul.html' with order=order visible=True%}
         </div>
-        {% for item in  items %}
-          {{ item.cake}} {{ item.quantity}}
-        {% endfor %}
     </div>
 </table>
 {% endblock %}

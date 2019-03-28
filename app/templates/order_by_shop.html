@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body%}
+<div class="card">
+
+        <div class="card-header">
+
+            Orders
+        </div>
+        <div class="card-body">
+            {% crispy form %}
+        {% for delivery_day, orders_ in orders.items %}
+            <div class='d-none' data-div="{{ delivery_day }}">
+                {% for order in  orders_ %}
+                    {% if order%}
+                        {% include 'order_ul.html' with order=order  %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    $('[data-delivery-day]').data('lastValue', $('[data-delivery-day]').val()).change(function(){
+        var option = $(this).val();
+        var lastdiv = $('[data-div='+ $(this).data('lastValue')+ ']');
+        lastdiv.addClass('d-non     e');
+        var div = $('[data-div=' + option + ']')
+        div.removeClass('d-none');
+    });
+</script>
+{% endblock %}

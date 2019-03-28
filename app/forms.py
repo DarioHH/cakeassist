@@ -1,3 +1,4 @@
+import django_filters
 from django.forms import ModelForm, BaseFormSet
 from django import forms
 from app.models import Order, Item
@@ -79,8 +80,18 @@ class OrderDetailsFormSet(BaseFormSet):
             if cake in cakes:
                 raise forms.ValidationError('Cake in a set must have distinct')
 
+class OrderFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='iexact')
 
+    class Meta:
+        model = Order
+        fields = ['shop', 'delivery_day']
 
+class DateOrderForm(forms.Form):
+
+    def __init__(self, choices, selected):
+        super(DateOrderForm, self).__init__()
+        self.fields['select'] = forms.ChoiceField(choices=choices, widget=forms.Select(attrs={'data-delivery-day': None, 'selected': selected.strftime("%Y-%m-%d")}))
 
 
 ItemFormSet = inlineformset_factory(
