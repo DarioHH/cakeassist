@@ -5,8 +5,14 @@
 <div class="card">
 
         <div class="card-header">
-
-            Orders
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Order by shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Total Order</a>
+              </li>
+            </ul>
         </div>
         <div class="card-body">
             {% crispy form %}
@@ -27,8 +33,9 @@
     $('[data-delivery-day]').data('lastValue', $('[data-delivery-day]').val()).change(function(){
         var option = $(this).val();
         var lastdiv = $('[data-div='+ $(this).data('lastValue')+ ']');
-        lastdiv.addClass('d-non     e');
-        var div = $('[data-div=' + option + ']')
+        lastdiv.addClass('d-none');
+        var div = $('[data-div=' + option + ']');
+        $(this).data('lastValue', option);
         div.removeClass('d-none');
     });
 </script>

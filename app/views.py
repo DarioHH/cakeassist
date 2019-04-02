@@ -62,7 +62,7 @@ class CreateOrder(CreateView):
 
 
     def get_success_url(self):
-            return reverse_lazy('order_detail', kwargs={'pk': self.object.pk})
+                 return reverse_lazy('order_detail', kwargs={'pk': self.object.pk})
 
     #     form = OrderFormSet()
     #     form.user = request.user
